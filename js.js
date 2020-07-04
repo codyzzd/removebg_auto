@@ -1,3 +1,3 @@
-funtion pegaDoRemove(){
-    
+function pegaDoRemove(codigo) {
+  console.log(codigo);
 }
