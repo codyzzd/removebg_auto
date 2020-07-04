@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">Remove.bg para ATG</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,11 @@
                                     placeholder="ex: 452154">
                             </div>
                             <div class="">
-                                <button type="submit" class="btn btn-primary btn-lg col-12 mt-3" id="vai">Baixar sem
+                                <button type="button" class="btn btn-light btn-lg col-12 mt-3" id="nowater">Baixar sem
+                                    watermark</button>
+                            </div>
+                            <div class="">
+                                <button type="button" class="btn btn-primary btn-lg col-12 mt-3" id="nobg">Baixar sem
                                     Fundo!</button>
                             </div>
                         </div>
@@ -70,14 +74,56 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
-            function pegaDoRemove() {
+
+            let urlAtg = "https://api.atacadogames.com/m/"
+
+            function noBG() {
+                //pegando codigo do campo
                 let codigoprod = $("#ceccode").val();
                 console.log(codigoprod);
+
+                //preparar url
+                let urlFinal = urlAtg.concat(codigoprod);
+                console.log(urlFinal);
+
+                //indo la usar api
+                const Http = new XMLHttpRequest();
+                const url = urlFinal;
+                Http.open("GET", url);
+                Http.send();
+
+                Http.onreadystatechange = (e) => {
+                    console.log(Http.responseText)
+                }
+
             }
 
+            function noWater() {
+                //pegando codigo do campo
+                let codigoprod = $("#ceccode").val();
+                console.log(codigoprod);
+
+                //preparar url
+                let urlFinal = urlAtg.concat(codigoprod);
+                console.log(urlFinal);
+
+                // indo la usar api
+                // window.location.href = urlFinal
+                // let urlFinalFull = $('img')[0].src;
+                // location.href = urlFinal;
+
+                var img = $('<img />', { src: urlFinal + $('img').val() + '.png' });
+                console.log(img);
+                location.href = img;
+            }
+
+
+
             //clica no botao chama função
-            $("#vai").click(pegaDoRemove());
+            $("#nowater").click(noWater);
+            $("#nobg").click(noBG);
         </script>
 
     </body>
